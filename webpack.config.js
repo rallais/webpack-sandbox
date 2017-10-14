@@ -8,30 +8,50 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = {
+const config = {
     entry: {
         app: './src/app.js',
-        print: './src/math.js'
     },
     output: {
         filename: '[name].bundle.js',
         path: dist
     },
     plugins: [
+        new UglifyJsPlugin({
+            sourceMap: true
+        }),
         new WebpackManifestPlugin(),
         new CleanWebpackPlugin(['dist']),
-        new UglifyJsPlugin(),
         new HtmlWebpackPlugin({
-            title: 'home',
-            filename: 'app.html',
-            inject: 'body'
+            title: 'trip planner',
+            inject: 'body',
+            filename: 'app.html'
         })
     ],
     module: {
-        loaders: [{
-            exclude: /node_modules/,
-            loader: 'babel-loader'
-        }]
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            ['env',
+                                {
+                                    'targets': {
+                                        'browsers': ['last 2 versions', 'ie >= 11']
+                                    },
+                                    modules: false,
+                                    cacheDirectory: true,
+                                    debug: true
+                                }]
+                        ],
+                        plugins: ['transform-runtime']
+                    }
+                }
+            }
+        ]
     },
     devtool: 'inline-source-map',
     devServer: {
@@ -40,3 +60,5 @@ module.exports = {
         openPage: 'app.html'
     }
 };
+
+module.exports = config;

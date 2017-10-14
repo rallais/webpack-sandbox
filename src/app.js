@@ -1,9 +1,9 @@
 'use strict';
 
-import { cube } from './math.js'; // import cube function
+import {cube} from './math.js';
 
-function component() {
-    var element = document.createElement('div');
+let component = () => {
+    let element = document.createElement('div');
     element.innerHTML = [
         'Hello webpack',
         '5 cubed is equal to ' + cube(5) // use cube function
