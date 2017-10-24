@@ -29,27 +29,11 @@ const config = {
         })
     ],
     module: {
-        rules: [
+        loaders: [
             {
+                loader: 'babel-loader',
                 test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            ['env',
-                                {
-                                    'targets': {
-                                        'browsers': ['last 2 versions', 'ie >= 11']
-                                    },
-                                    modules: false,
-                                    cacheDirectory: true,
-                                    debug: true
-                                }]
-                        ],
-                        plugins: ['transform-runtime']
-                    }
-                }
+                exclude: /node_modules/
             }
         ]
     },
