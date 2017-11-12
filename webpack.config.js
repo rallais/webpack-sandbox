@@ -6,8 +6,7 @@ const dist = path.resolve(__dirname, 'dist');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
-const BabelMinifyWebpackPlugin = require("babel-minify-webpack-plugin");
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const config = {
     entry: {
@@ -18,13 +17,15 @@ const config = {
         path: dist
     },
     plugins: [
-        new BabelMinifyWebpackPlugin(),
         new WebpackManifestPlugin(),
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             title: 'trip planner',
             inject: 'body',
             filename: 'app.html'
+        }),
+        new UglifyJsPlugin({
+            sourceMap: true
         })
     ],
     module: {
@@ -37,7 +38,7 @@ const config = {
         ]
     }
     ,
-    devtool: 'inline-cheap-module-source-map',
+    devtool: 'source-map',
     devServer: {
         port: 9000,
         contentBase:
