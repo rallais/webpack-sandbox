@@ -6,7 +6,8 @@ const dist = path.resolve(__dirname, 'dist');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const BabelMinifyWebpackPlugin = require("babel-minify-webpack-plugin");
+
 
 const config = {
     entry: {
@@ -17,9 +18,7 @@ const config = {
         path: dist
     },
     plugins: [
-        new UglifyJsPlugin({
-            sourceMap: true
-        }),
+        new BabelMinifyWebpackPlugin(),
         new WebpackManifestPlugin(),
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
@@ -36,12 +35,15 @@ const config = {
                 exclude: /node_modules/
             }
         ]
-    },
-    devtool: 'inline-source-map',
+    }
+    ,
+    devtool: 'inline-cheap-module-source-map',
     devServer: {
         port: 9000,
-        contentBase: dist,
-        openPage: 'app.html'
+        contentBase:
+        dist,
+        openPage:
+            'app.html'
     }
 };
 
