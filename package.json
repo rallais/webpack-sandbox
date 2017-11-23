@@ -16,7 +16,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --hot --progress --inline --open",
+    "start": "webpack-dev-server",
     "build": "webpack"
   },
   "devDependencies": {
